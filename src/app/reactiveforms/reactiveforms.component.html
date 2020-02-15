@@ -1,0 +1,68 @@
+<div [@reactiveforms] *ngIf="visible" class="dialog">
+    <button *ngIf="closable" routerLink="/" (click)="close()" aria-label="Close" class="popup__close-btn">X</button>
+    <div class="reactiveform">
+        <div class="container">
+            <div class="row">
+                <div class="col column">
+                    <h3>Add new car</h3>
+                    <form [formGroup]="registerForm"
+                        (ngSubmit)="onSubmit(registerForm.value.car.brand,registerForm.value.car.name, registerForm.value.car.transmission, registerForm.value.date, registerForm.value.price)">
+                        <div formGroupName="student" class="form-group">
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <input type="text" formControlName="brand" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && getcar.controls.brand.errors }" />
+                                <div *ngIf="submitted && getcar.controls.brand.errors" class="invalid-feedback">
+                                    <div *ngIf="getcar.controls.brand.errors.required"> Brand is required</div>
+                                    <div *ngIf="getcar.controls.brand.errors.pattern">Brand is must string
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" formControlName="name" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && getcar.controls.name.errors }" />
+                                <div *ngIf="submitted && getcar.controls.name.errors" class="invalid-feedback">
+                                    <div *ngIf="getcar.controls.name.errors.required"> Name is required</div>
+                                    <div *ngIf="getcar.controls.name.errors.misMatch"> Name must mismatch Brand
+                                    </div>
+                                    <div *ngIf="getcar.controls.name.errors.pattern"> Name is must string</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Transmission</label>
+                                <input type="text" formControlName="transmission" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && getcar.controls.transmission.errors }" />
+                                <div *ngIf="submitted && getcar.controls.transmission.errors" class="invalid-feedback">
+                                    <div *ngIf="getcar.controls.transmission.errors.required">Transmission is required
+                                    </div>
+                                    <div *ngIf="getcar.controls.transmission.errors.pattern"> Transmission is must string
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" [maxLength]="7" formControlName="price" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && getregister.price.errors }" />
+                            <div *ngIf="submitted && getregister.price.errors" class="invalid-feedback">
+                                <div *ngIf="getregister.price.errors.required">Price is required</div>
+                                <div *ngIf="getregister.price.errors.pattern">Price is number</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Date </label>
+                            <input type="number" formControlName="date" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && getregister.date.errors }" />
+                            <div *ngIf="submitted && getregister.date.errors" class="invalid-feedback">
+                                <div *ngIf="getregister.date.errors.required">Date is required</div>
+                                <div *ngIf="getregister.date.errors.checkDate">Release date should be less than 10 years </div>
+                            </div>
+                        </div>
+                        <button routerLink="/" class=" btn">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

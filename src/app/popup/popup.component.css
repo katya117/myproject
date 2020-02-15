@@ -1,0 +1,57 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.popup{
+  z-index: 1000;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  min-height: 200px;
+  width: 100%;
+  max-width: 520px;
+  background-color: #fff;
+  padding: 12px;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 768px) {
+  .popup  {
+    top: 40px;
+  }
+}
+
+.popup__close-btn {
+  border: 0;
+  background: none;
+  color: #2d2d2d;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+}
+.btn{
+
+  display: inline-block;
+ color: white;
+ text-decoration: none;
+ padding: .5em 2em;
+ outline: none;
+ border-width: 2px 0;
+ border-style: solid none;
+ border-color: #FDBE33 #000 #D77206;
+ border-radius: 6px;
+ background: linear-gradient(#F3AE0F, #E38916) #E38916;
+ transition: 0.2s;
+} 
+.btn:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
+.btn:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }

@@ -1,0 +1,5 @@
+<div [@popup] *ngIf="visible" class="popup">
+	<ng-content></ng-content>
+	<button *ngIf="closable" (click)="close()" aria-label="Close" class="popup__close-btn">X</button>
+	<button *ngIf="closable" (click)="confirm()" class="btn">Yes</button>
+</div>
