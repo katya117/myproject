@@ -1,15 +1,58 @@
+import { animate, animateChild, query, state, style, transition, trigger } from "@angular/animations";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { Car } from "../car";
+
+const DUR = 500;
 
 @Component({
   selector: "my-app",
   templateUrl: "./home.html",
   styleUrls: ["./home.css"],
+  animations: [trigger("move", [
+    state("forward", style({ transform: "translateX(0)" })),
+    state("backward", style({ transform: "translateX(0)" })),
+    state("backward-inactive", style({ transform: "translateX(100%)" })),
+    state("forward-inactive", style({ transform: "translateX(-100%)" })),
+
+    transition("forward => forward-inactive", [
+      style({ transform: "translateX(0)" }),
+      animate(DUR, style({ transform: "translateX(-100%)" })),
+    ]),
+
+    transition("forward-inactive => forward, backward-inactive => forward", [
+      style({ transform: "translateX(100%)" }),
+      animate(DUR, style({ transform: "translateX(0)" })),
+    ]),
+
+    transition("backward-inactive => backward, forward-inactive => backward", [
+      style({ transform: "translateX(-100%)" }),
+      animate(DUR, style({ transform: "translateX(0)" })),
+    ]),
+
+    transition("backward => backward-inactive, forward => backward-inactive", [
+      style({ transform: "translateX(0)" }),
+      animate(DUR, style({ transform: "translateX(100%)" })),
+    ]),
+
+    transition("backward => forward-inactive", [
+      style({ transform: "translateX(0)" }),
+      animate(DUR, style({ transform: "translateX(-100%)" })),
+    ]),
+
+  ])],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HomeComponent implements OnInit {
-  elements: Car[] = [
+  direction = "forward";
+  counter = 0;
+  slideItems = [
+    { src: "assets/img/audi.jpg", title: "Title 1" },
+    { src: "assets/img/chevrolet.jpg", title: "Title 2" },
+    { src: "assets/img/Mitsubishi.jpg", title: "Title 3" },
+  ];
+
+ elements: Car[] = [
     {
       "brand": "Chevrolet",
       "name": "Cobalt",
@@ -86,6 +129,19 @@ export class HomeComponent implements OnInit {
   editChanging(n: number): number {
     this.editNumber = n;
     return this.editNumber;
+  }
+  showNextImage(): void {
+    if (this.counter < this.slideItems.length - 1) {
+      this.counter += 1;
+      this.direction = "forward";
+    }
+  }
+
+  showPreviousImage(): void {
+    if (this.counter >= 1) {
+      this.counter = this.counter - 1;
+      this.direction = "backward";
+    }
   }
 }
 

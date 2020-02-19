@@ -1,1 +1,8 @@
-/* Add application styles & imports to this file! */
+body{
+	background: linear-gradient(to right, #F6EFD2, #cedef1);
+	max-width: 1335px;
+	padding: 70px; 
+	position: absolute;
+	margin: auto;
+	margin-left: 150px;
+}
