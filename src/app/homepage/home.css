@@ -38,6 +38,7 @@
 	border-top: 1px solid #ccc;
 	padding: 10px;
 	text-align: left;
+	width: 300px;
 	
 }
 .btn{
@@ -112,10 +113,8 @@ ul {
     transform: rotate(-45deg);
 	-webkit-transform: rotate(-45deg);
 position: relative;
-
-
-	
 }
+
 .arr_l{
 	border: solid black;
     border-width: 0 3px 3px 0;

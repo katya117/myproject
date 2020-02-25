@@ -6,3 +6,7 @@ body{
 	margin: auto;
 	margin-left: 150px;
 }
+.light {
+	background-color:rgb(124, 124, 218);
+	font-weight: 600;
+  }

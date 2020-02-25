@@ -1,7 +1,6 @@
 
 <div class="arrow"> CarLand </div>
-<div class="block"><input type="text" placeholder="Search Brand or Name" (input)="search($event.target.value)" class="search">
-  <input type="text" placeholder="Search Date or Price" (input)="find($event.target.value)" class="search">
+<div class="block"><input type="text" [(ngModel)]="filterQuery" placeholder="Search Brand or Name or Price or Date" (input)="search($event.target.value)" class="search">
   <ul>
     <li 
       *ngFor="let item of slideItems;let i = index"
@@ -17,31 +16,28 @@
   
  
 </div>
-  <table class="bordered">
+  <table class="bordered" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th>Initial</th>
-        <th (click)="sortByBrand()">Brand</th>
-        <th (click)="sortByName()">Name</th>
-        <th (click)="sortByTransmission()">Transmission</th>
-        <th (click)="sortDate()">Date</th>
+        <th mat-sort-header="brand">Brand</th>
+        <th mat-sort-header="name">Name</th>
+        <th >Transmission</th>
+        <th mat-sort-header="data">Date</th>
         <th> Age </th>
-        <th (click)="sortByPrice()">Price</th>
-        <input type="button" value="set ptice < 400000 " (click)="setred()" class="btn">
-        <th><input type="checkbox" (click)=" color='lightblue' ">Light blue</th>
+        <th mat-sort-header="price">Price</th>
+      <th><button routerLink="/register" class="btn" (click)="showReactiveForm = !showReactiveForm"> Add car</button></th> 
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let el of car  ; let i = index "
         [ngStyle]="{'background-color': visibility == true && el.price < '400000 '? 'red':  'white' }"
         [appcolortable]=" color ">
-        <td>{{el.brand | initial}} {{el.name | initial}} </td>
-        <td>{{el.brand }} </td>
-        <td>{{el.name}}</td>
-        <td>{{el.transmission}}</td>
-        <td>{{el.data | date:'yyyy' }}</td>
+        <td><div [innerHTML]="el.brand | highlight : filterQuery"></div></td>
+        <td><div [innerHTML]="el.name | highlight : filterQuery"></div></td>
+        <td><div [innerHTML]="el.transmission | highlight : filterQuery"></div></td>
+        <td><div [innerHTML]="el.data | date:'yyyy' | highlight : filterQuery"></div></td>
         <td>{{el.data | age }}</td>
-        <td>{{el.price}}</td>
+        <td><div [innerHTML]="el.price| highlight : filterQuery"></div></td>
         <td><button (click)="showDialog = !showDialog" class="btn" (click)="editChanging(i) ">Delete</button></td>
         <td><button routerLink="/edit" (click)="showEditForm = !showEditForm " class="btn" (click)="editChanging(i)">
             Edit
@@ -50,7 +46,7 @@
       </tr>
     </tbody>
   </table>
-<button routerLink="/register" class="btn" (click)="showReactiveForm = !showReactiveForm"> Add car</button>
+
 <app-popup [(visible)]="showDialog" [editNumber]="editNumber" [editChanging]="editChanging" [delete]="elements">
   <h1>Do you want delete?</h1>
 </app-popup>

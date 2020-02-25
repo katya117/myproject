@@ -1,7 +1,7 @@
 import { animate, animateChild, query, state, style, transition, trigger } from "@angular/animations";
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { Sort } from "@angular/material";
 import { Car } from "../car";
-
 const DUR = 500;
 
 @Component({
@@ -92,6 +92,7 @@ export class HomeComponent implements OnInit {
   add: Car[];
   edit: Car[];
   color: string;
+  filterQuery: string = "";
   setred(): void {
     this.visibility = !this.visibility;
   }
@@ -101,31 +102,31 @@ export class HomeComponent implements OnInit {
   search(value: string): void {
     this.car = this.elements.filter(a => a.name.toLowerCase().search(value.toLowerCase()) > -1 || a.brand.toLowerCase().search
       (value.toLowerCase()) > -1 || a.transmission.toLowerCase().search
+        (value.toLowerCase()) > -1 || a.data.toLocaleDateString().toLowerCase().search(value.toLowerCase()) > -1 || a.price.toLocaleString().toLowerCase().search
         (value.toLowerCase()) > -1);
-  }
-  find(value: string): void {
-    this.car = this.elements.filter(a => a.data.toLocaleDateString().toLowerCase().search(value.toLowerCase()) > -1 || a.price.toLocaleString().toLowerCase().search
-      (value.toLowerCase()) > -1);
-
   }
   constructor() {
     this.car = this.elements.slice();
   }
-  sortByName(): void {
-    this.car = this.elements.sort((a, b) => (a.name > b.name) ? 1 : -1);
+  sortData(sort: Sort): void {
+    const data = this.elements.slice();
+    if (!sort.active || sort.direction === "") {
+      this.car = data;
+      return;
+    }
+
+    this.car = data.sort((a, b) => {
+      const isAsc = sort.direction === "asc";
+      switch (sort.active) {
+        case "brand": return compare(a.brand, b.brand, isAsc);
+        case "name": return compare(a.name, b.name, isAsc);
+        case "price": return compare(a.price, b.price, isAsc);
+        case "data": return compare(a.data, b.data, isAsc);
+        default: return 0;
+      }
+    });
   }
-  sortByBrand(): void {
-    this.car = this.elements.sort((a, b) => (a.brand > b.brand) ? 1 : -1);
-  }
-  sortByTransmission(): void {
-    this.car = this.elements.sort((a, b) => (a.transmission > b.transmission) ? 1 : -1);
-  }
-  sortByprice(): void {
-    this.car = this.elements.sort((a, b) => (a.price > b.price) ? 1 : -1);
-  }
-  sortDate(): void {
-    this.car = this.elements.sort((a, b) => (a.data > b.data) ? 1 : -1);
-  }
+
   editChanging(n: number): number {
     this.editNumber = n;
     return this.editNumber;
@@ -143,5 +144,8 @@ export class HomeComponent implements OnInit {
       this.direction = "backward";
     }
   }
+}
+function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean): number {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
