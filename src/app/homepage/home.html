@@ -1,7 +1,10 @@
 
 <div class="arrow"> CarLand </div>
-<div class="block"><input type="text" [(ngModel)]="filterQuery" placeholder="Search Brand or Name or Price or Date" (input)="search($event.target.value)" class="search">
-  <ul>
+<a  routerLink ="/about"  class="text"> О компании </a>
+<a  routerLink ="/contact"  class="text"> Контакты </a>
+<input type="text" [(ngModel)]="filterQuery" placeholder="Search Brand or Name or Price or Date" (input)="search($event.target.value)" class="search">
+ <div > 
+   <ul>
     <li 
       *ngFor="let item of slideItems;let i = index"
       [@move]="i == counter ? direction : direction+'-inactive'"

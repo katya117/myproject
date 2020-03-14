@@ -4,7 +4,7 @@ export function checkDateValidator(): ValidatorFn {
         const maxDate = new Date();
         const difference = maxDate.getFullYear() - 10;
         const minyear = new Date(difference);
-        if (new Date(control.value) > (minyear)) {
+        if (new Date(control.value) < (minyear)) {
             return { "checkDate": true };
         }
     };

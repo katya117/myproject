@@ -7,14 +7,14 @@
                     <h3>Add new car</h3>
                     <form [formGroup]="registerForm"
                         (ngSubmit)="onSubmit(registerForm.value.car.brand,registerForm.value.car.name, registerForm.value.car.transmission, registerForm.value.date, registerForm.value.price)">
-                        <div formGroupName="student" class="form-group">
+                        <div formGroupName="car" class="form-group">
                             <div class="form-group">
                                 <label>Brand</label>
                                 <input type="text" formControlName="brand" class="form-control"
                                     [ngClass]="{ 'is-invalid': submitted && getcar.controls.brand.errors }" />
                                 <div *ngIf="submitted && getcar.controls.brand.errors" class="invalid-feedback">
                                     <div *ngIf="getcar.controls.brand.errors.required"> Brand is required</div>
-                                    <div *ngIf="getcar.controls.brand.errors.pattern">Brand is must string
+                                    <div *ngIf="getcar.controls.brand.errors.pattern"> Brand is must string
                                     </div>
                                 </div>
                             </div>
@@ -24,8 +24,7 @@
                                     [ngClass]="{ 'is-invalid': submitted && getcar.controls.name.errors }" />
                                 <div *ngIf="submitted && getcar.controls.name.errors" class="invalid-feedback">
                                     <div *ngIf="getcar.controls.name.errors.required"> Name is required</div>
-                                    <div *ngIf="getcar.controls.name.errors.misMatch"> Name must mismatch Brand
-                                    </div>
+                                    <div *ngIf="getcar.controls.name.errors.misMatch"> Name must mismatch Brand</div>
                                     <div *ngIf="getcar.controls.name.errors.pattern"> Name is must string</div>
                                 </div>
                             </div>
@@ -36,7 +35,8 @@
                                 <div *ngIf="submitted && getcar.controls.transmission.errors" class="invalid-feedback">
                                     <div *ngIf="getcar.controls.transmission.errors.required">Transmission is required
                                     </div>
-                                    <div *ngIf="getcar.controls.transmission.errors.pattern"> Transmission is must string
+                                    <div *ngIf="getcar.controls.transmission.errors.pattern"> Transmission is must
+                                        string
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +56,11 @@
                                 [ngClass]="{ 'is-invalid': submitted && getregister.date.errors }" />
                             <div *ngIf="submitted && getregister.date.errors" class="invalid-feedback">
                                 <div *ngIf="getregister.date.errors.required">Date is required</div>
-                                <div *ngIf="getregister.date.errors.checkDate">Release date should be less than 10 years </div>
+                                <div *ngIf="getregister.date.errors.checkDate">Release date should be less than 10 years
+                                </div>
                             </div>
                         </div>
-                        <button routerLink="/" class=" btn">Add</button>
+                        <button  class=" btn">Add</button>
                     </form>
                 </div>
             </div>
